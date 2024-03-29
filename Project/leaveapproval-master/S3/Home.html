@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leave Management</title>
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-image: url("C:/Users/SHANMUKHA/Desktop/New folder/image1.jpg");
+      background-size: cover;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+      color: white;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      margin: 0 15px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff9900;
+    }
+
+    .nav-logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links a {
+      margin: 0 15px;
+    }
+
+    .nav-mobile-icon {
+      font-size: 24px;
+      cursor: pointer;
+      display: none;
+    }
+
+    @media screen and (max-width: 600px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        width: 100%;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-mobile-icon {
+        display: block;
+      }
+    }
+
+    .buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .action-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px 30px;
+      font-size: 18px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .action-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">Leave Management</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#">Home</a>
+      <a href="about.html">About</a>
+      <!-- Add more navigation links as needed -->
+    </div>
+    <div class="nav-mobile-icon" onclick="toggleNav()">
+      &#9776;
+    </div>
+  </nav>
+
+  <div class="buttons-container">
+    <a href="apply_leave.html" class="action-button">Apply Leave</a>
+    <a href="search_leaves.html" class="action-button">Number of Leaves Applied</a>
+  </div>
+
+  <script>
+    function toggleNav() {
+      var navLinks = document.getElementById("navLinks");
+      navLinks.classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

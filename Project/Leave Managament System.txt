@@ -1,0 +1,72 @@
+Leave Managament System
+---------------------------------
+
+1. Apply for a leave
+2. Confirmation for leave application.
+3. Send notification to the approver regarding new leave request.
+4. Send reminder notification to the approver.
+5. Send notification upon approval/rejection.
+-------------------------------------------------------
+
+Services : API Gateway
+		AWS DynamoDB
+		AWS SES
+		AWS S3 
+		AWS Lambda
+-------------------------------------------------------
+
+Leave Request Submission:
+
+Employees can submit leave requests through the system, specifying details such as the start date, end date, type of leave (e.g., vacation, sick leave), and reason.
+
+Approval Workflow:
+
+Supervisors or managers receive notifications about pending leave requests and can approve or reject them through the system. 
+-------------------------------------------------------
+
+	Leave Request
+	-------------------
+Email:
+Name:
+Reason for Leave : type - sick or personal or others
+From Date : 
+To Date :
+Submit
+-------------------------------------------------------------------
+
+References: 
+
+https://pubudu.hashnode.dev/simple-leave-management-system
+
+https://github.com/pubudusj/simple-leave-management
+
+https://www.youtube.com/watch?v=eiOz27lKHYA
+
+https://www.linkedin.com/pulse/leave-approval-application-using-aws-services-veera-vamshi-mulugu/?trackingId=8VDcvctFRaSpUIqn%2BZnYUg%3D%3D
+
+https://github.com/MuluguVeeraVamshi/leaveapproval
+
+https://kluniversityin-my.sharepoint.com/:w:/g/personal/2000031504_kluniversity_in/ESwaUYRAIkJFkoJ7Z4YZ0RkB7-lxZVKJMiqRjF2ApoRNuQ?rtime=xUw6PeMt3Eg
+---------------------------------------------------------------------
+
+
+step-1: Iam role
+policy : s3, ses, api gat
+
+step-2 dynamo db
+         Email
+	end_date
+	leave_type
+	Name
+	start_date
+	Approved
+
+step-3 SES(200 email max)
+
+Step-4 lambda
+
+-------------------------------------------------------
+leaves>n reject mail
+admin module
+history of the user
+profile

@@ -1,0 +1,53 @@
+import boto3
+
+def lambda_handler(event, context):
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('leavemanagement')  # Replace with your table name
+
+    # Get the Email from the event body
+    try:
+        Email = event['Email']  # Adjust as needed based on your event structure
+    except KeyError:
+        return {
+            'statusCode': 400,
+            'body': "Missing 'email' field in the request body."
+        }
+
+    try:
+        response = table.get_item(Key={'Email': Email})
+
+        if 'Item' in response:
+            item = response['Item']
+            
+            # Extract information details from the item
+            name = item.get('Name', '')
+            start_date = item.get('start_date', '')
+            end_date = item.get('end_date', '')
+            
+            # Access the 'L' attribute directly for 'leave_type'
+            leave_type_list = item.get('leave_type', [])
+            count=len(leave_type_list)
+
+            return {
+                'statusCode': 200,
+                'body': {
+                    'Name': name,
+                    'Start Date': start_date,
+                    'End Date': end_date,
+                    'Leave Type': leave_type_list,
+                    'Count of Leave_Type':count,
+                    'Status': item.get('Status', '')
+                }
+            }
+        else:
+            return {
+                'statusCode': 404,
+                'body': "Item not found with the provided Email."
+            }
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        print(error_message)
+        return {
+            'statusCode': 500,
+            'body': error_message
+        }

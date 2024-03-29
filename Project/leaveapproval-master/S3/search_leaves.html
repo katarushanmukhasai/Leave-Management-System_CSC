@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Leaves</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 250px;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #result {
+      margin-top: 20px;
+    }
+
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      width: fit-content;
+    }
+
+    table {
+      width: auto;
+      margin: 0 auto; /* Center the table */
+      border-collapse: collapse;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    /* Navigation bar styles */
+    nav {
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+
+    .nav-links a:hover {
+      color: #ff9900;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-title">Leave Management</div>
+    <div class="nav-links">
+      <a href="Home.html">Home</a>
+    </div>
+  </nav>
+
+  <h2>Search Leaves</h2>
+  <form id="searchForm">
+    <label for="email">Enter Email:</label>
+    <input type="email" id="email" name="email" required>
+    <button type="button" onclick="searchLeaves()">Search</button>
+  </form>
+  <center>
+  <div id="result"></div>
+</center>
+
+  <script>
+    function searchLeaves() {
+      // Get the email value from the input field
+      var email = document.getElementById('email').value;
+
+      // Construct the API Gateway endpoint URL
+      var apiGatewayEndpoint = 'https://n00iyatnt4.execute-api.us-east-1.amazonaws.com/stage/findleave' + '?Email=' + email;
+
+      // Make a GET request to the API Gateway endpoint
+      fetch(apiGatewayEndpoint)
+        .then(response => response.json())
+        .then(data => {
+          // Create a table layout with the response data
+          var resultDiv = document.getElementById('result');
+          resultDiv.innerHTML = ''; // Clear previous results
+
+          var card = document.createElement('div');
+          card.className = 'card';
+
+          var table = document.createElement('table');
+          table.className = 'card';
+
+          // Customize based on your API response structure
+          var tableContent = `
+            <tr>
+              <th>Name</th>
+              <td>${data.body.Name}</td>
+            </tr>
+            <tr>
+              <th>Start Date</th>
+              <td>${data.body['Start Date']}</td>
+            </tr>
+            <tr>
+              <th>End Date</th>
+              <td>${data.body['End Date']}</td>
+            </tr>
+            <tr>
+              <th>Leave Type</th>
+              <td>${data.body['Leave Type']}</td>
+            </tr>
+            <tr>
+              <th>Count of Leave Type</th>
+              <td>${data.body['Count of Leave_Type']}</td>
+            </tr>
+    
+          `;
+          
+          table.innerHTML = tableContent;
+          card.appendChild(table);
+          resultDiv.appendChild(card);
+        })
+        .catch(error => {
+          // Handle errors
+          console.error('Error:', error);
+        });
+    }
+  </script>
+</body>
+</html>
